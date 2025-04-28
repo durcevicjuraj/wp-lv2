@@ -1,116 +1,105 @@
 <!DOCTYPE html>
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!--dodati meta tag bitan za stranicu-->
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="Movie, Film, Kino, Cinema Guide, Movie recommendations, Movie reviews">
+  <meta name="description" content="Cinephile Movies is your ultimate destination for discovering movies, exploring detailed reviews, and finding personalized recommendations.">
+  <title>Virtualna Videoteka</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Cinephile</h1>
+  </header>
 
-		<!--Keywords meta tag for SEO-->	
-		<meta name="keywords" content="Movie, Film, Kino, Cinema Guide, Movie recommendations, Movie reviews">
-		<!-- Provides a brief description of the page for search engines and users who may use assistive technology to browse search engine results -->
-		<meta name="description" content="Cinephile Movies  is your ultimate destination for discovering movies, exploring detailed reviews, and finding personalized recommendations.">
-		<!-- Accessibility meta tag: Specifies the primary language of the page. Helps screen readers understand the language-->
-		<html lang="en">
+  <section id="filteri">
+    <div class="filter-item">
+      <label for="filter-genre">Žanr:</label>
+      <select id="filter-genre">
+        <option value="">-- Svi --</option>
+      </select>
+    </div>
 
-		<!--dodati link za css dokumente -->
-		<link rel="stylesheet" href="style.css">
+    <div class="filter-item">
+      <label for="filter-year-from">Godina od: <span id="year-from-value"></span></label>
+      <input type="range" id="filter-year-from" min="1900" max="2025" value="1980" step="1">
+    </div>
+    <div class="filter-item">
+      <label for="filter-year-to">Godina do: <span id="year-to-value"></span></label>
+      <input type="range" id="filter-year-to" min="1900" max="2025" value="2025" step="1">
+    </div>
 
-		<title>Cinephile Movies</title> <!--promijeniti odgovarajući tekst na stranici
-		ovo je samo predložak-->
-	</head>
-	<body>
-		<header>
-		<h1>Welcome to Cinephile</h1>
-		</header>
-		<!-- <header>
-       <nav aria-labelledby="primarna-navigacija">
-        <h2 id="primarna-navigacija">Primarna navigacija</h2>
+    <div class="filter-item">
+      <label for="filter-country">Države(odvojene zarezom):</label>
+      <input type="text" id="filter-country" placeholder="npr. United States, Italy">
+    </div>
+
+    <div class="filter-item">
+      <label for="filter-rating">Ocjena ≥:</label>
+      <input type="number" id="filter-rating" min="0" max="10" step="0.1" placeholder="7.0">
+    </div>
+
+    <button id="primijeni-filtere">Primijeni filtere</button>
+  </section>
+
+   <!-- PAGINACIJA -->
+   <div id="pagination">
+    <button id="prev-page">←</button>
+    <span id="page-info">1/1</span>
+    <button id="next-page">→</button>
+  </div>
+
+  <table id="filmovi-tablica">
+    <thead>
+      <tr>
+        <th>Naslov</th>
+        <th>Godina</th>
+        <th>Žanr</th>
+        <th>Trajanje</th>
+        <th>Država</th>
+        <th>Ocjena</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <aside id="kosarica">
+    <h2>Moja košarica</h2>
+    <ul id="lista-kosarice"></ul>
+    <button id="potvrdi-kosaricu">Potvrdi odabir</button>
+  </aside>
+
+  <main class="grid-container">
+
+    <section class="trivia">
+      <h2>Daily Trivia</h2>
+      <p>Who voiced Mark aka Invincible?</p>
+    </section>
+
+    <article class="news">
+      <h2>New season of hit show Invincible</h2>
+      <p>An adult animated series based on the Skybound/Image comic about a teenager whose father is the most powerful superhero on the planet.</p>
+    </article>
+
+    <aside class="sidebar">
+
+      <section class="image-container">
+        <img src="Invincible_season_2_Poster_big.jpg" alt="Invincible season 2 poster" class="responsive-image">
+        </section>
         
-        </nav>
-        </header>
-    -->
-		<nav class="nav-menu" aria-labelledby="primary-navigation"> <!-- dodati obilježja za ARIA-->
-			<!-- <ul> dodati da je navigacija lijevo poravnata i da je skrivena
-								
-				LV1: bez upotrebe javascripta 
-				<li><a href="#">Pocetna</a></li>
-				<li><a href="#">O nama</a></li>
-				<li><a href="#">Kontakt</a></li>
-			</ul>
-		-->
-			<div class="dropdown">
-				<button class="dropbtn">Menu</button>
-				<div class="dropdown-content">
-				  <a href="#">Home</a>
-				  <a href="#">About</a>
-				  <a href="#">Contact</a>
-				</div>
-			</div>
 
-		</nav>
+      <a href="https://www.imdb.com/title/tt6741278/">IMDB</a>
 
-		<h1>Movie list</h1>
-
-			<table class="main-table">
-				<tr>
-					<th>ID</th>
-					<th>Title</th>
-					<th>Year</th>
-					<th>Genre</th>
-					<th>Duration</th>
-					<th>Country</th>
-					<th>Rating</th>
-				</tr>
-				<tr><td>2</td><td>Bugs Bunny's Third Movie</td><td>1982</td><td>Animacija</td><td>76</td><td>SAD</td><td>7.7</td></tr>
-				<tr><td>3</td><td>18 anni tra una settimana</td><td>1991</td><td>Drama</td><td>98</td><td>Italija</td><td>6.5</td></tr>
-				<tr><td>17</td><td>Ride a Wild Pony</td><td>1976</td><td>Romantični</td><td>91</td><td>SAD</td><td>5.7</td></tr>
-				<tr><td>18</td><td>Diner</td><td>1982</td><td>Komedija</td><td>95</td><td>SAD</td><td>7.0</td></tr>
-				<tr><td>20</td><td>A che servono questi quattrini?</td><td>1942</td><td>Komedija</td><td>85</td><td>Italija</td><td>5.9</td></tr>
-				<tr><td>22</td><td>A ciascuno il suo</td><td>1967</td><td>Drama</td><td>93</td><td>Italija</td><td>7.6</td></tr>
-				<tr><td>23</td><td>Dead-Bang</td><td>1989</td><td>Krimić</td><td>109</td><td>SAD</td><td>6.0</td></tr>
-				<tr><td>24</td><td>A... come assassino</td><td>1966</td><td>Triler</td><td>80</td><td>Italija</td><td>5.2</td></tr>
-				<tr><td>26</td><td>At Close Range</td><td>1986</td><td>Drama</td><td>115</td><td>SAD</td><td>7.5</td></tr>
-				<tr><td>30</td><td>A Ghentar si muore facile</td><td>1968</td><td>Avantura</td><td>101</td><td>Italija</td><td>4.8</td></tr>
-				<tr><td>32</td><td>Sleeping with the Enemy</td><td>1990</td><td>Drama</td><td>96</td><td>SAD</td><td>5.0</td></tr>
-				<tr><td>34</td><td>In Bed With Madonna</td><td>1990</td><td>Dokumentarni</td><td>111</td><td>SAD</td><td>5.3</td></tr>
-				<tr><td>36</td><td>Bowery at Midnight</td><td>1942</td><td>Horor</td><td>62</td><td>SAD</td><td>5.1</td></tr>
-				<tr><td>37</td><td>A mezzanotte va la ronda del piacere</td><td>1975</td><td>Komedija</td><td>100</td><td>Italija</td><td>5.8</td></tr>
-				<tr><td>38</td><td>Mr. Majestyk</td><td>1974</td><td>Akcija</td><td>105</td><td>SAD</td><td>6.2</td></tr>
-				<tr><td>45</td><td>Warning Sign</td><td>1985</td><td>Akcija</td><td>99</td><td>SAD</td><td>4.8</td></tr>
-				<tr><td>47</td><td>About Last Night</td><td>1986</td><td>Komedija</td><td>113</td><td>SAD</td><td>5.9</td></tr>
-				<tr><td>49</td><td>Fail-Safe</td><td>1964</td><td>Drama</td><td>110</td><td>SAD</td><td>8.2</td></tr>
-				<tr><td>51</td><td>Some Like It Hot</td><td>1959</td><td>Komedija</td><td>120</td><td>SAD</td><td>9.1</td></tr>
-			</table>
-
-			<main class="grid-container">
-
-				<section class="trivia">
-				  <h2>Daily Trivia</h2>
-				  <p>Who voiced Mark aka Invincible?</p>
-				</section>
-
-				<article class="news">
-				  <h2>New season of hit show Invincible</h2>
-				  <p>An adult animated series based on the Skybound/Image comic about a teenager whose father is the most powerful superhero on the planet.</p>
-				</article>
-
-				<aside class="sidebar">
-
-					<section class="image-container">
-						<img src="Invincible_season_2_Poster_big.jpg" alt="Invincible season 2 poster" class="responsive-image">
-					  </section>
-					  
-
-				  <a href="https://www.imdb.com/title/tt6741278/">IMDB</a>
-
-				</aside>
-				
-			  </main>
-			  
-
-		<!--dodati odgovarajuće elemente na temelju danog zadatka: tablice, slike, tekst
-		Nepotrebno obrisati! -->
-		<footer>
-		<p>&copy; 2025. Web Programming. All rights reserved</p>
-		</footer>
-	</body>
-	</html>
+    </aside>
+    
+    </main>
+    
+<footer>
+<p>&copy; 2025. Web Programming. All rights reserved</p>
+</footer>
+</body>
+</html>

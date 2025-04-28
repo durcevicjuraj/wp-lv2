@@ -98,13 +98,13 @@ header {
     font-weight: bold;
 }
 
-.main-table{
+#filmovi-tablica{
     border: 3px solid;
     width: 100%;
     border-collapse: collapse;
 }
 
-.main-table tr{
+#filmovi-tablica tr{
     border: 1px solid;
 }
 
@@ -217,44 +217,122 @@ footer {
     }
 }
 
-/*Dodano naknadno*/
-.main-table {
+/* Dodano naknadno */
+
+
+
+/* Filter-item kao stupac: naziv iznad inputa */
+#filteri {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  #filteri .filter-item {
+    display: flex;
+    flex-direction: column; /* label iznad inputa */
+    margin-right: 1rem;     /* horizontalni razmak između filtera */
+    margin-bottom: 1rem;    /* vertikalni razmak između filtera */
+  }
+  
+  #filteri .filter-item label {
+    margin-bottom: 0.5rem;  /* razmak između naziva i inputa */
+  }
+  
+  
+  
+
+/* Pagination container */
+#pagination {
+  display: flex;
+  justify-content: center;    /* centriraj strelice i broj stranice */
+  align-items: center;
+  margin: 1rem 0;              /* razmak od tablice i ostatka sadržaja */
+  gap: 0.5rem;                 /* razmak između elemenata */
+}
+
+/* Stil gumbima za navigaciju */
+#pagination button {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  width: auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #080606;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#pagination button:hover {
+  background-color: #383535;
+}
+
+/* Broj stranice */
+#pagination #page-info {
+  font-weight: bold;
+}
+
+
+#primijeni-filtere {
+    display: inline-block;  
+    width: auto;
+    height: 35px;            
+    padding: 0.25em 0.5em;  
+    white-space: nowrap;    
+  }
+  
+
+#lista-kosarice button {
+    display: inline-block;  
+    width: auto;            
+    padding: 0.25em 0.5em;  
+    white-space: nowrap;  
+  }  
+
+#filmovi-tablica button {
+    display: inline-block;  
+    width: auto;           
+    padding: 0.25em 0.5em;  
+    white-space: nowrap;    
+  }
+  
+
+#filmovi-tablica {
     border: 3px solid #000; 
     width: 100%;
     border-collapse: collapse;
     font-family: Arial, sans-serif; 
 }
 
-.main-table th, .main-table td {
+#filmovi-tablica th, #filmovi-tablica td {
     border: 1px solid #ddd; 
     padding: 12px; 
     text-align: left; 
 }
 
-.main-table th {
+#filmovi-tablica th {
     background-color: #24191f; 
     color: white; 
     font-weight: bold; 
 }
 
-.main-table tr:nth-child(even) {
+#filmovi-tablica tr:nth-child(even) {
     background-color: #f2f2f2; 
 }
 
-.main-table tr:nth-child(odd) {
+#filmovi-tablica tr:nth-child(odd) {
     background-color: #fff; 
 }
 
-.main-table tr:hover {
+#filmovi-tablica tr:hover {
     background-color: #ddd;
 }
 
-.main-table td a {
+#filmovi-tablica td a {
     color: #007BFF;
     text-decoration: none;
 }
 
-.main-table td a:hover {
+#filmovi-tablica td a:hover {
     text-decoration: underline; 
 }
 
